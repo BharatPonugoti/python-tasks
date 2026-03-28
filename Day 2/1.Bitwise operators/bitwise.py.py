@@ -1,0 +1,7 @@
+#Bitwise OR (|)#
+# Bitwise OR
+a = int(input("Enter first number: "))
+b = int(input("Enter second number: "))
+
+result = a | b
+print("Bitwise OR result:", result)
