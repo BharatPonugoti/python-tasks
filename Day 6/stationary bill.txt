@@ -1,0 +1,67 @@
+# Subject names stored in a tuple
+subjects = ("Telugu", "Hindi", "English")
+# Dictionary to store student name and marks
+students = {}
+# Set to store unique student names
+student_names = set()
+# Recursive function to calculate total marks
+def total_marks(marks, n):
+if n == 0:
+return 0
+return marks[n-1] + total_marks(marks, n-1)
+# Function to add a student
+def add_student():
+try:
+name = input("Enter student name: ")
+marks = []
+for sub in subjects:
+m = int(input(f"Enter marks for {sub}: "))
+marks.append(m)
+students[name] = marks
+student_names.add(name)
+except ValueError:
+print("Invalid input! Please enter numeric marks.")
+except TypeError:
+print("Type Error occurred while storing marks.")
+# Function to display student records
+def display_students():
+try:
+for name in students:
+print(name, ":", students[name])
+except TypeError:
+print("Data type error while displaying records.")
+# Function to calculate average
+def calculate_average():
+try:
+name = input("Enter student name to calculate average: ")
+if name not in students:
+raise NameError
+marks = students[name]
+total = total_marks(marks, len(marks))
+avg = total / len(marks)
+print("Total Marks:", total)
+print("Average Marks:", avg)
+except NameError:
+print("Student name not found.")
+except ZeroDivisionError:
+print("Cannot divide by zero.")
+except TypeError:
+print("Marks data type error.")
+# Main program
+while True:
+print("\n1. Add Student")
+print("2. Display Students")
+print("3. Calculate Average")
+print("4. Exit")
+choice = input("Enter choice: ")
+if choice == "1":
+add_student()
+elif choice == "2":
+display_students()
+elif choice == "3":
+calculate_average()
+elif choice == "4":
+break
+else:
+print("Invalid choice"
+    
