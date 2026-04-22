@@ -20,5 +20,5 @@ This Repository contains my python practice tasks.
 - Day 16
 - Day 16 (2)
 - Analytics ( Project 1)
-- 
+-  Analytics ( Project 2)
   
