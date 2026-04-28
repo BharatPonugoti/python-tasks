@@ -1,168 +1,154 @@
-# ============================================
-# Project: Railway Gauges Analysis
-# ============================================
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-
-
-# ============================================
-# Scenario 1: Data Loading & Cleaning
-# ============================================
-
-file_path = "railway_gauges.csv"
-
-# Check if file exists
-if not os.path.exists(file_path):
-    print("❌ File not found. Make sure 'railway_gauges.csv' is in this folder.")
-    exit()
-
-print("✅ File found")
+print("Current Folder:", os.getcwd())
+print("Files here:", os.listdir())
+# ==============================
+# SCENARIO 1: DATA LOADING & PREPROCESSING
+# ==============================
 
 # Load dataset
-df = pd.read_csv(file_path)
+df = pd.read_csv("ign.csv.csv")
 
-# Clean column names
-df.columns = df.columns.str.strip().str.title()
+# Display dataset info
+print("First 5 rows:\n", df.head())
+print("\nLast 5 rows:\n", df.tail())
+print("\nShape:", df.shape)
 
-# Display data
-print("\nFirst 5 Rows:\n", df.head())
-print("\nColumn Names:\n", df.columns)
+# Remove unnecessary column
+if "Unnamed: 0" in df.columns:
+    df.drop("Unnamed: 0", axis=1, inplace=True)
+
+# Check missing values
+print("\nMissing values:\n", df[['score', 'genre', 'platform']].isnull().sum())
 
 # Handle missing values
-df.fillna(0, inplace=True)
+df['score'].fillna(df['score'].mean(), inplace=True)
+df['genre'].fillna(df['genre'].mode()[0], inplace=True)
 
-# Convert columns to numeric
-for col in ['Broad', 'Metre', 'Narrow', 'Total']:
-    if col in df.columns:
-        df[col] = pd.to_numeric(df[col], errors='coerce').fillna(0)
+# Fix data types
+df['score'] = df['score'].astype(float)
+df['release_year'] = df['release_year'].astype(int)
+df['release_month'] = df['release_month'].astype(int)
+df['release_day'] = df['release_day'].astype(int)
 
-print("\nCleaned Data:\n", df.head())
 
+# ==============================
+# SCENARIO 2: LINE GRAPH (SCORE TREND)
+# ==============================
 
-# ============================================
-# Scenario 2: Line Chart (Total Growth)
-# ============================================
+yearly_scores = df.groupby('release_year')['score'].mean()
+
+years = yearly_scores.index.to_numpy()
+avg_scores = yearly_scores.values
 
 plt.figure()
-plt.plot(df['Year'], df['Total'], marker='o')
+plt.plot(years, avg_scores, marker='o')
+plt.title("Average Game Score Over Years")
+plt.xlabel("Release Year")
+plt.ylabel("Average Score")
+plt.savefig("avg_score_trend.png")
+plt.close()
 
-plt.title("Total Railway Track Growth")
+
+# ==============================
+# SCENARIO 3: FILTERING + BAR CHART
+# ==============================
+
+high_rated = df[df['score'] > 7]
+
+platform_counts = high_rated['platform'].value_counts()
+top_platforms = platform_counts.head(10)
+
+platforms = top_platforms.index.to_numpy()
+counts = top_platforms.values
+
+plt.figure()
+plt.bar(platforms, counts)
+plt.xticks(rotation=45)
+plt.xlabel("Platform")
+plt.ylabel("Number of High Rated Games")
+plt.title("Top 10 Platforms (Score > 7)")
+plt.savefig("top_platforms_bar.png")
+plt.close()
+
+
+# ==============================
+# SCENARIO 4: PIE CHART (GENRE DISTRIBUTION)
+# ==============================
+
+genre_counts = df['genre'].value_counts()
+top_genres = genre_counts.head(5)
+
+plt.figure()
+plt.pie(top_genres.values, labels=top_genres.index, autopct='%1.1f%%')
+plt.title("Top 5 Genre Distribution")
+plt.savefig("genre_distribution.png")
+plt.close()
+
+
+# ==============================
+# SCENARIO 5: ADVANCED ANALYSIS
+# ==============================
+
+# Feature Engineering
+def categorize(score):
+    if score >= 9:
+        return "Excellent"
+    elif score >= 7:
+        return "Good"
+    else:
+        return "Average"
+
+df['score_category'] = df['score'].apply(categorize)
+
+# Convert editors_choice
+df['editors_choice'] = df['editors_choice'].map({'Y': 1, 'N': 0})
+
+# NumPy Analysis
+yearly_avg = df.groupby('release_year')['score'].mean()
+score_growth = np.diff(yearly_avg.values)
+
+print("\nYearly Score Growth:\n", score_growth)
+
+# Line Graph
+plt.figure()
+plt.plot(yearly_avg.index, yearly_avg.values, marker='o')
+plt.title("Score Trend Over Years")
 plt.xlabel("Year")
-plt.ylabel("Total Track Length")
+plt.ylabel("Average Score")
+plt.savefig("score_trend.png")
+plt.close()
 
-plt.grid()
-plt.show()
-
-# Trend analysis
-if df['Total'].iloc[-1] > df['Total'].iloc[0]:
-    print("\nTrend: Increasing")
-else:
-    print("\nTrend: Decreasing")
-
-
-# ============================================
-# Scenario 3: Bar Chart (After 2000)
-# ============================================
-
-df_recent = df[df['Year'] > 2000]
-
-x = np.arange(len(df_recent))
-width = 0.25
-
-plt.figure()
-
-plt.bar(x - width, df_recent['Broad'], width, label='Broad')
-plt.bar(x, df_recent['Metre'], width, label='Metre')
-plt.bar(x + width, df_recent['Narrow'], width, label='Narrow')
-
-plt.xticks(x, df_recent['Year'])
-
-plt.title("Gauge Comparison After 2000")
+# Stacked Bar Chart
+category_counts = df.groupby(['release_year', 'score_category']).size().unstack(fill_value=0)
+category_counts.plot(kind='bar', stacked=True)
+plt.title("Score Categories per Year")
 plt.xlabel("Year")
-plt.ylabel("Track Length")
+plt.ylabel("Count")
+plt.savefig("score_category_stacked.png")
+plt.close()
 
-plt.legend()
-plt.show()
-
-# Dominant gauge
-dominant = df_recent[['Broad', 'Metre', 'Narrow']].mean().idxmax()
-print("\nDominant Gauge (After 2000):", dominant)
-
-
-# ============================================
-# Scenario 4: Pie Chart (Contribution)
-# ============================================
-
-totals = df[['Broad', 'Metre', 'Narrow']].sum()
-
+# Histogram
 plt.figure()
-plt.pie(totals, labels=totals.index, autopct='%1.1f%%')
-
-plt.title("Gauge Contribution")
-plt.show()
-
-print("\nHighest Contribution:", totals.idxmax())
-
-
-# ============================================
-# Scenario 5: Advanced Analysis
-# ============================================
-
-# Percentage columns
-df['% Broad'] = (df['Broad'] / df['Total']) * 100
-df['% Metre'] = (df['Metre'] / df['Total']) * 100
-df['% Narrow'] = (df['Narrow'] / df['Total']) * 100
-
-# Growth calculation
-growth = np.diff(df['Total'])
-max_growth_year = df['Year'].iloc[np.argmax(growth) + 1]
-
-print("\nYear with Highest Growth:", max_growth_year)
-
-# Line graph (all gauges)
-plt.figure()
-plt.plot(df['Year'], df['Broad'], label='Broad')
-plt.plot(df['Year'], df['Metre'], label='Metre')
-plt.plot(df['Year'], df['Narrow'], label='Narrow')
-
-plt.title("Gauge Trends Over Time")
-plt.xlabel("Year")
-plt.ylabel("Track Length")
-
-plt.legend()
-plt.grid()
-plt.show()
-
-# Stacked bar chart
-plt.figure()
-
-plt.bar(df['Year'], df['Broad'], label='Broad')
-plt.bar(df['Year'], df['Metre'], bottom=df['Broad'], label='Metre')
-plt.bar(df['Year'], df['Narrow'], bottom=df['Broad'] + df['Metre'], label='Narrow')
-
-plt.title("Gauge Composition Over Years")
-plt.xlabel("Year")
-plt.ylabel("Track Length")
-
-plt.legend()
-plt.show()
-
-# Decline detection
-if df['Metre'].iloc[-1] < df['Metre'].iloc[0]:
-    print("Metre Gauge is Declining")
-
-if df['Narrow'].iloc[-1] < df['Narrow'].iloc[0]:
-    print("Narrow Gauge is Declining")
+plt.hist(df['score'], bins=20)
+plt.title("Score Distribution")
+plt.xlabel("Score")
+plt.ylabel("Frequency")
+plt.savefig("score_distribution.png")
+plt.close()
 
 
-# ============================================
-# Final Conclusion
-# ============================================
+# ==============================
+# INSIGHTS
+# ==============================
 
-if dominant == 'Broad':
-    print("\nConclusion: The railway system is shifting towards Broad Gauge dominance.")
-else:
-    print("\nConclusion: No single gauge is fully dominant yet.")
+best_year = yearly_avg.idxmax()
+print("\nYear with highest average score:", best_year)
+
+trend_increasing = np.all(score_growth >= 0)
+print("Are scores consistently increasing?", trend_increasing)
+
+correlation = df['score'].corr(df['editors_choice'])
+print("Correlation between score and editor's choice:", correlation)
