@@ -18,6 +18,11 @@ This Repository contains my python practice tasks.
 - Day 14(2)
 - Day 15
 - Day 16
+- Day 16(2)
+- Analytics (Incl Sample Project&5projects)
+- Scikit_learn
+- Day 15
+- Day 16
 - Day 16 (2)
 - Analytics ( Project 1)
 -  Analytics ( Project 2)
