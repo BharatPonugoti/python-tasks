@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Tasks</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Task Manager</h1>
+
+        <form action="/add" method="POST">
+
+            <input
+                type="text"
+                name="title"
+                placeholder="Enter Task"
+                required
+            >
+
+            <button type="submit">
+                Add Task
+            </button>
+
+        </form>
+
+        <table>
+
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+
+            {% for task in tasks %}
+
+            <tr>
+
+                <td>{{ task.id }}</td>
+                <td>{{ task.title }}</td>
+                <td>{{ task.status }}</td>
+
+                <td>
+
+                    <a href="/update/{{ task.id }}">
+                        Update
+                    </a>
+
+                    |
+
+                    <a href="/delete/{{ task.id }}">
+                        Delete
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</body>
+</html><!DOCTYPE html>
+<html>
+<head>
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Dashboard</h1>
+
+        <h2>Total Tasks: {{ total }}</h2>
+
+        <h2>Completed Tasks: {{ completed }}</h2>
+
+        <h2>Pending Tasks: {{ pending }}</h2>
+
+    </div>
+
+</body>
+</html>body{
+    font-family: Arial;
+    background: #f4f4f4;
+    text-align: center;
+}
+
+.container{
+    margin-top: 50px;
+}
+
+input{
+    padding: 10px;
+}
+
+button{
+    padding: 10px 20px;
+    background: blue;
+    color: white;
+    border: none;
+}
+
+table{
+    margin: auto;
+    width: 80%;
+    background: white;
+    border-collapse: collapse;
+}
+
+table, th, td{
+    border: 1px solid gray;
+}
+
+th, td{
+    padding: 10px;
+}
