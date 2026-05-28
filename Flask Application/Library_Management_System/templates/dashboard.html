@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Dashboard</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+
+            background:
+            linear-gradient(
+                135deg,
+                #0f172a,
+                #1e3a8a,
+                #7c3aed
+            );
+
+            min-height:100vh;
+
+            color:white;
+        }
+
+        .navbar{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            padding:20px 40px;
+
+            background:rgba(255,255,255,0.1);
+
+            backdrop-filter:blur(10px);
+        }
+
+        .navbar h1{
+
+            font-size:32px;
+        }
+
+        .logout{
+
+            padding:10px 20px;
+
+            border:none;
+
+            border-radius:10px;
+
+            background:#ef4444;
+
+            color:white;
+
+            font-size:16px;
+
+            cursor:pointer;
+        }
+
+        .container{
+
+            padding:50px;
+        }
+
+        .welcome{
+
+            font-size:42px;
+
+            margin-bottom:40px;
+        }
+
+        .cards{
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(auto-fit,minmax(220px,1fr));
+
+            gap:30px;
+        }
+
+        .card{
+
+            background:rgba(255,255,255,0.1);
+
+            padding:35px;
+
+            border-radius:20px;
+
+            text-align:center;
+
+            backdrop-filter:blur(10px);
+
+            transition:0.3s;
+
+            text-decoration:none;
+
+            color:white;
+        }
+
+        .card:hover{
+
+            transform:translateY(-10px);
+
+            background:rgba(255,255,255,0.2);
+
+            box-shadow:
+            0 0 20px rgba(255,255,255,0.2);
+        }
+
+        .card h2{
+
+            font-size:55px;
+
+            margin-bottom:15px;
+        }
+
+        .card p{
+
+            font-size:22px;
+
+            font-weight:bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="navbar">
+
+        <h1>📚 Library Dashboard</h1>
+
+        <button class="logout">
+            Logout
+        </button>
+
+    </div>
+
+    <div class="container">
+
+        <div class="welcome">
+            Welcome Admin 👋
+        </div>
+
+        <div class="cards">
+
+            <a href="/books" class="card">
+
+                <h2>📘</h2>
+
+                <p>Books</p>
+
+            </a>
+
+            <a href="/clients" class="card">
+
+                <h2>👨‍🎓</h2>
+
+                <p>Clients</p>
+
+            </a>
+
+            <a href="/issued-books" class="card">
+
+                <h2>📖</h2>
+
+                <p>Issued Books</p>
+
+            </a>
+
+            <a href="/accounts" class="card">
+
+                <h2>💰</h2>
+
+                <p>Accounts</p>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

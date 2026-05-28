@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Issued Books</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+
+            min-height:100vh;
+
+            padding:40px;
+
+            background:
+            linear-gradient(
+                135deg,
+                #0f172a,
+                #1e3a8a,
+                #7c3aed
+            );
+
+            color:white;
+        }
+
+        .container{
+
+            background:rgba(255,255,255,0.1);
+
+            padding:40px;
+
+            border-radius:25px;
+
+            backdrop-filter:blur(10px);
+
+            box-shadow:
+            0 0 25px rgba(0,0,0,0.4);
+        }
+
+        h1{
+
+            text-align:center;
+
+            margin-bottom:30px;
+
+            font-size:50px;
+        }
+
+        .top-section{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            margin-bottom:25px;
+        }
+
+        .add-btn{
+
+            padding:12px 25px;
+
+            border:none;
+
+            border-radius:10px;
+
+            background:#22c55e;
+
+            color:white;
+
+            font-size:16px;
+
+            cursor:pointer;
+
+            transition:0.3s;
+        }
+
+        .add-btn:hover{
+
+            transform:scale(1.05);
+
+            background:#16a34a;
+        }
+
+        table{
+
+            width:100%;
+
+            border-collapse:collapse;
+
+            overflow:hidden;
+
+            border-radius:15px;
+        }
+
+        th{
+
+            background:#2563eb;
+
+            padding:15px;
+
+            font-size:18px;
+        }
+
+        td{
+
+            background:rgba(255,255,255,0.1);
+
+            padding:15px;
+
+            text-align:center;
+
+            font-size:16px;
+        }
+
+        tr:hover td{
+
+            background:rgba(255,255,255,0.2);
+        }
+
+        .late-fee{
+
+            color:#facc15;
+
+            font-weight:bold;
+        }
+
+        .delete-btn{
+
+            padding:8px 15px;
+
+            border:none;
+
+            border-radius:8px;
+
+            background:#ef4444;
+
+            color:white;
+
+            cursor:pointer;
+
+            transition:0.3s;
+        }
+
+        .delete-btn:hover{
+
+            background:#dc2626;
+
+            transform:scale(1.05);
+        }
+
+        .popup{
+
+            display:none;
+
+            position:fixed;
+
+            top:50%;
+            left:50%;
+
+            transform:translate(-50%,-50%);
+
+            background:white;
+
+            color:black;
+
+            padding:30px;
+
+            border-radius:20px;
+
+            width:350px;
+
+            box-shadow:
+            0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .popup input{
+
+            width:100%;
+
+            padding:12px;
+
+            margin-bottom:15px;
+
+            border:1px solid gray;
+
+            border-radius:8px;
+        }
+
+        .save-btn{
+
+            width:100%;
+
+            padding:12px;
+
+            border:none;
+
+            border-radius:10px;
+
+            background:#2563eb;
+
+            color:white;
+
+            font-size:16px;
+
+            cursor:pointer;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>📚 Issued Books</h1>
+
+        <div class="top-section">
+
+            <button class="add-btn"
+                    onclick="openPopup()">
+
+                ➕ Add Issued Book
+
+            </button>
+
+        </div>
+
+        <table id="issuedTable">
+
+            <tr>
+
+                <th>S.No</th>
+                <th>Client ID</th>
+                <th>Book Name</th>
+                <th>Issue Date</th>
+                <th>Return Date</th>
+                <th>Late Fee</th>
+                <th>Action</th>
+
+            </tr>
+
+            <tr>
+
+                <td>1</td>
+                <td>C101</td>
+                <td>Python Basics</td>
+                <td>01-05-2026</td>
+                <td>20-05-2026</td>
+
+                <td class="late-fee">
+                    ₹250
+                </td>
+
+                <td>
+
+                    <button class="delete-btn"
+                            onclick="deleteBook(this)">
+
+                        Delete
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+    <!-- Popup -->
+
+    <div class="popup"
+         id="popupForm">
+
+        <h2 style="margin-bottom:20px;">
+            Add Issued Book
+        </h2>
+
+        <input type="text"
+               id="sno"
+               placeholder="S.No">
+
+        <input type="text"
+               id="clientId"
+               placeholder="Client ID">
+
+        <input type="text"
+               id="bookName"
+               placeholder="Book Name">
+
+        <input type="text"
+               id="issueDate"
+               placeholder="Issue Date">
+
+        <input type="text"
+               id="returnDate"
+               placeholder="Return Date">
+
+        <input type="text"
+               id="lateFee"
+               placeholder="Late Fee">
+
+        <button class="save-btn"
+                onclick="addBook()">
+
+            Save
+
+        </button>
+
+    </div>
+
+    <script>
+
+        function openPopup(){
+
+            document.getElementById("popupForm").style.display="block";
+        }
+
+        function addBook(){
+
+            let sno=document.getElementById("sno").value;
+
+            let clientId=document.getElementById("clientId").value;
+
+            let bookName=document.getElementById("bookName").value;
+
+            let issueDate=document.getElementById("issueDate").value;
+
+            let returnDate=document.getElementById("returnDate").value;
+
+            let lateFee=document.getElementById("lateFee").value;
+
+            let table=document.getElementById("issuedTable");
+
+            let row=table.insertRow();
+
+            row.innerHTML=
+            `
+            <td>${sno}</td>
+
+            <td>${clientId}</td>
+
+            <td>${bookName}</td>
+
+            <td>${issueDate}</td>
+
+            <td>${returnDate}</td>
+
+            <td class="late-fee">
+                ₹${lateFee}
+            </td>
+
+            <td>
+                <button class="delete-btn"
+                        onclick="deleteBook(this)">
+                    Delete
+                </button>
+            </td>
+            `;
+
+            document.getElementById("popupForm").style.display="none";
+        }
+
+        function deleteBook(button){
+
+            let row=button.parentNode.parentNode;
+
+            row.remove();
+        }
+
+    </script>
+
+</body>
+
+</html>

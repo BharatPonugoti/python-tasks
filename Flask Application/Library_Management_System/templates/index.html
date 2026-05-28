@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Management System</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body{
+            background: linear-gradient(135deg,#081b63,#6a11cb);
+            min-height:100vh;
+            color:white;
+        }
+
+        .container{
+            width:90%;
+            margin:auto;
+            padding-top:50px;
+        }
+
+        .hero{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            flex-wrap:wrap;
+        }
+
+        .left{
+            width:50%;
+        }
+
+        h1{
+            font-size:65px;
+            font-weight:bold;
+            margin-bottom:20px;
+        }
+
+        .tagline{
+            display:inline-block;
+            background:rgba(255,255,255,0.15);
+            border:2px solid gold;
+            padding:12px 25px;
+            border-radius:15px;
+            font-size:35px;
+            font-weight:bold;
+            color:#ffd700;
+            box-shadow:0 0 20px gold;
+            margin-bottom:30px;
+        }
+
+        .description{
+            font-size:22px;
+            line-height:1.6;
+            margin-bottom:35px;
+        }
+
+        .login-btn{
+            text-decoration:none;
+            background:linear-gradient(90deg,#a855f7,#3b82f6);
+            color:white;
+            padding:15px 40px;
+            border-radius:12px;
+            font-size:24px;
+            font-weight:bold;
+            transition:0.3s;
+        }
+
+        .login-btn:hover{
+            transform:scale(1.05);
+        }
+
+        .right img{
+            width:450px;
+            border-radius:50%;
+            border:5px solid white;
+            box-shadow:0 0 30px rgba(255,255,255,0.5);
+        }
+
+        .cards{
+            margin-top:70px;
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:25px;
+        }
+
+        .card{
+            background:rgba(255,255,255,0.1);
+            padding:25px;
+            border-radius:20px;
+            backdrop-filter:blur(10px);
+            box-shadow:0 0 15px rgba(0,0,0,0.3);
+        }
+
+        .card h2{
+            margin-bottom:15px;
+        }
+
+        .card p{
+            line-height:1.5;
+        }
+
+        @media(max-width:900px){
+
+            .hero{
+                flex-direction:column;
+                text-align:center;
+            }
+
+            .left{
+                width:100%;
+            }
+
+            .right img{
+                margin-top:40px;
+                width:300px;
+            }
+
+            .cards{
+                grid-template-columns:1fr;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="hero">
+
+            <div class="left">
+
+                <h1>📚 Library <br> Management System</h1>
+
+                <div class="tagline">
+                    Read • Learn • Grow
+                </div>
+
+                <p class="description">
+                    A smart solution to manage books, members and
+                    transactions efficiently.
+                </p>
+
+                <a href="/login" class="login-btn">
+                    Login
+                </a>
+
+            </div>
+
+            <div class="right">
+                <img src="{{ url_for('static', filename='images/saraswathi.png') }}" alt="Library">
+            </div>
+
+        </div>
+
+        <div class="cards">
+
+            <div class="card">
+                <h2>📘 Manage Books</h2>
+                <p>Add, update and organize books easily.</p>
+            </div>
+
+            <div class="card">
+                <h2>👨‍🎓 Members</h2>
+                <p>Track student/member records efficiently.</p>
+            </div>
+
+            <div class="card">
+                <h2>🔄 Issue & Return</h2>
+                <p>Handle issue and return transactions smoothly.</p>
+            </div>
+
+            <div class="card">
+                <h2>📊 Reports</h2>
+                <p>Generate reports and monitor activities.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

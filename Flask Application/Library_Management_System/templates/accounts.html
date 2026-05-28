@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Accounts Dashboard</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+
+            min-height:100vh;
+
+            padding:40px;
+
+            background:
+            linear-gradient(
+                135deg,
+                #0f172a,
+                #1e3a8a,
+                #7c3aed
+            );
+
+            color:white;
+        }
+
+        .container{
+
+            background:rgba(255,255,255,0.1);
+
+            padding:40px;
+
+            border-radius:25px;
+
+            backdrop-filter:blur(10px);
+
+            box-shadow:
+            0 0 25px rgba(0,0,0,0.4);
+        }
+
+        h1{
+
+            text-align:center;
+
+            margin-bottom:40px;
+
+            font-size:48px;
+
+            color:#ffffff;
+        }
+
+        .cards{
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(auto-fit,minmax(250px,1fr));
+
+            gap:30px;
+        }
+
+        .card{
+
+            padding:35px;
+
+            border-radius:20px;
+
+            text-align:center;
+
+            transition:0.3s;
+
+            color:white;
+        }
+
+        .card:hover{
+
+            transform:translateY(-10px);
+
+            box-shadow:
+            0 0 20px rgba(255,255,255,0.3);
+        }
+
+        .revenue{
+
+            background:
+            linear-gradient(
+                135deg,
+                #22c55e,
+                #16a34a
+            );
+        }
+
+        .late-fee{
+
+            background:
+            linear-gradient(
+                135deg,
+                #f59e0b,
+                #d97706
+            );
+        }
+
+        .membership{
+
+            background:
+            linear-gradient(
+                135deg,
+                #3b82f6,
+                #2563eb
+            );
+        }
+
+        .card h2{
+
+            font-size:24px;
+
+            margin-bottom:15px;
+        }
+
+        .amount{
+
+            font-size:42px;
+
+            font-weight:bold;
+        }
+
+        .footer{
+
+            margin-top:40px;
+
+            text-align:center;
+
+            color:#ddd;
+
+            font-size:14px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>💰 Accounts Dashboard</h1>
+
+        <div class="cards">
+
+            <div class="card revenue">
+
+                <h2>Total Revenue</h2>
+
+                <div class="amount">
+                    ₹50,000
+                </div>
+
+            </div>
+
+            <div class="card late-fee">
+
+                <h2>Late Fees Collected</h2>
+
+                <div class="amount">
+                    ₹2,000
+                </div>
+
+            </div>
+
+            <div class="card membership">
+
+                <h2>Membership Fees</h2>
+
+                <div class="amount">
+                    ₹48,000
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="footer">
+
+            © 2026 Library Management System
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
