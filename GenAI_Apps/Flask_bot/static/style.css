@@ -1,0 +1,183 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:linear-gradient(
+        135deg,
+        #0f172a,
+        #312e81,
+        #7c3aed
+    );
+
+    min-height:100vh;
+}
+
+.container{
+    display:flex;
+    min-height:100vh;
+}
+
+/* Sidebar */
+
+.sidebar{
+    width:260px;
+    background:rgba(0,0,0,.25);
+    backdrop-filter:blur(20px);
+    padding:30px;
+    color:white;
+}
+
+.sidebar h2{
+    margin-bottom:30px;
+}
+
+.new-chat{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+
+    background:linear-gradient(
+        45deg,
+        #06b6d4,
+        #8b5cf6
+    );
+
+    color:white;
+    margin-bottom:30px;
+}
+
+.sidebar ul{
+    list-style:none;
+}
+
+.sidebar li{
+    padding:15px;
+    margin-bottom:10px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.sidebar li:hover{
+    background:rgba(255,255,255,.15);
+}
+
+/* Main */
+
+.main{
+    flex:1;
+    padding:40px;
+}
+
+.header{
+    color:white;
+    margin-bottom:30px;
+}
+
+.header h1{
+    font-size:42px;
+}
+
+.chat-form{
+    display:flex;
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.chat-form input{
+    flex:1;
+    padding:18px;
+    border:none;
+    border-radius:15px;
+    font-size:18px;
+}
+
+.chat-form button{
+    padding:18px 30px;
+    border:none;
+    border-radius:15px;
+
+    background:linear-gradient(
+        45deg,
+        #ec4899,
+        #f59e0b
+    );
+
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.response-card{
+    background:rgba(255,255,255,.12);
+    backdrop-filter:blur(20px);
+    border-radius:20px;
+    padding:25px;
+    color:white;
+    margin-bottom:30px;
+}
+
+.card-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.actions button{
+    border:none;
+    padding:8px 12px;
+    margin-left:5px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.response-card p{
+    line-height:1.8;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.box{
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(20px);
+    color:white;
+    text-align:center;
+    padding:25px;
+    border-radius:20px;
+    transition:.3s;
+}
+
+.box:hover{
+    transform:translateY(-8px);
+}
+
+.box span{
+    font-size:24px;
+    font-weight:bold;
+}
+
+@media(max-width:900px){
+
+    .container{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        width:100%;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+}

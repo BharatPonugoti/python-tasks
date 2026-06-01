@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Gemini AI Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+        <h2>🤖 Gemini AI</h2>
+
+        <a href="/new_chat">
+            <button class="new-chat">
+                <i class="fa-solid fa-plus"></i>
+                New Chat
+            </button>
+        </a>
+
+        <ul>
+
+            <a href="/history">
+                <li>
+                    <i class="fa-solid fa-clock"></i>
+                    History
+                </li>
+            </a>
+
+            <a href="/analytics">
+                <li>
+                    <i class="fa-solid fa-chart-line"></i>
+                    Analytics
+                </li>
+            </a>
+
+            <a href="/settings">
+                <li>
+                    <i class="fa-solid fa-gear"></i>
+                    Settings
+                </li>
+            </a>
+
+            <a href="/about">
+                <li>
+                    <i class="fa-solid fa-circle-info"></i>
+                    About
+                </li>
+            </a>
+
+        </ul>
+
+    </div>
+
+    <!-- MAIN -->
+
+    <div class="main">
+
+        <div class="header">
+
+            <h1>👋 Welcome to Gemini AI</h1>
+
+            <p>
+                Your intelligent assistant powered by Gemini
+            </p>
+
+        </div>
+
+        <!-- ASK FORM -->
+
+        <form method="POST" class="chat-form">
+
+            <input
+                type="text"
+                name="question"
+                placeholder="Ask Anything..."
+                required>
+
+            <button type="submit">
+                <i class="fa-solid fa-paper-plane"></i>
+                Ask
+            </button>
+
+        </form>
+
+        <!-- RESPONSE -->
+
+        {% if answer %}
+
+        <div class="response-card">
+
+            <div class="card-header">
+
+                <h2>✨ AI Response</h2>
+
+                <div>
+
+                    <a href="/retry">
+                        <button class="action-btn">
+                            🔄 Retry
+                        </button>
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div id="response">
+
+                {{ answer }}
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+        <!-- STATS -->
+
+        <div class="stats">
+
+            <div class="box">
+                <h3>⚡ Model</h3>
+                <span>Gemini 2.5 Flash</span>
+            </div>
+
+            <div class="box">
+                <h3>💬 Chat</h3>
+                <span>AI Assistant</span>
+            </div>
+
+            <div class="box">
+                <h3>📈 Analytics</h3>
+                <span>Enabled</span>
+            </div>
+
+            <div class="box">
+                <h3>🗂 History</h3>
+                <span>Stored</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
